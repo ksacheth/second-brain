@@ -3,7 +3,7 @@ import { ContentModel, UserModel } from "./db.js";
 import jwt from "jsonwebtoken";
 import { JWT_PASSWORD } from "./config.js";
 import { userMiddleware } from "./middleware.js";
-import bcrypt from "bcrypt";
+import bcrypt from "bcryptjs";
 
 const app = express();
 
