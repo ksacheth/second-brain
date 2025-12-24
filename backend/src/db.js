@@ -18,12 +18,12 @@ const contentSchema = new Schema({
   title: { type: String, required: true },
   link: String,
   tags: [{ type: ObjectId, ref: "Tag" }],
-  type: [{ type: String }],
+  type: String ,
 });
 
 const linkSchema = new Schema({
   hash: { type: String, required: true },
-  userId: { type: ObjectId, ref: "User", required: true },
+  userId: { type: ObjectId, ref: "User", required: true, unique: true },
 });
 
 const tagsSchema = new Schema({

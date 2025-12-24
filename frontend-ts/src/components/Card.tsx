@@ -1,5 +1,6 @@
 import type { ReactElement } from "react";
 import { Share } from "../icons/Share";
+import { DeleteIcon } from "../icons/DeleteIcon";
 
 interface CardInterface {
   title: string;
@@ -8,6 +9,7 @@ interface CardInterface {
   link: string;
   icon?: ReactElement;
   type: "twitter" | "youtube";
+  deleteContent: () => void | Promise<void>;
 }
 
 export function Card(props: CardInterface) {
@@ -19,7 +21,7 @@ export function Card(props: CardInterface) {
             <div className="pr-2 text-gray-500">
               <Share />
             </div>
-            Project Ideas
+            {props.title}
           </div>
           <div className="flex items-center">
             <div className="pr-2 text-gray-500">
@@ -27,16 +29,21 @@ export function Card(props: CardInterface) {
                 <Share />
               </a>
             </div>
-            <div className=" text-gray-500">
-              <Share />
-            </div>
+            <button
+              className=" text-gray-500 cursor-pointer"
+              onClick={() => {
+                props.deleteContent();
+              }}
+            >
+              <DeleteIcon />
+            </button>
           </div>
         </div>
         <div className="pt-4">
           {props.type === "youtube" && (
             <iframe
               className="w-full"
-              src={props.link.replace("watch", "embed").replace("?v=" ,"/")}
+              src={props.link.replace("watch", "embed").replace("?v=", "/")}
               title="YouTube video player"
               frameBorder="0"
               allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"

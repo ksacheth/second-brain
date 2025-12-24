@@ -14,4 +14,4 @@ ENV PORT=3000
 EXPOSE 3000
 
 # Start the application
-CMD ["bun", "run", "index.js"]
+CMD ["bun", "run", "src/index.js"]
