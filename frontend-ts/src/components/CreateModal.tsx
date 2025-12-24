@@ -3,7 +3,6 @@ import { Button } from "./Button.tsx";
 import { Cross } from "./CrossIcon.tsx";
 import Input from "./Input.tsx";
 import axios from "axios";
-import { useContent } from "../hooks/useContent.tsx";
 
 const ContentType = {
   Youtube: "youtube",
