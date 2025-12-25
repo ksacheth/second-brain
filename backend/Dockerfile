@@ -1,4 +1,4 @@
-FROM oven/bun:canary-alpine
+FROM oven/bun:alpine
 
 WORKDIR /app
 
@@ -10,8 +10,7 @@ RUN bun install
 COPY . .
 
 # Default port (Railway or local)
-ENV PORT=3000
-EXPOSE 3000
+EXPOSE 3002
 
 # Start the application
 CMD ["bun", "run", "src/index.js"]
