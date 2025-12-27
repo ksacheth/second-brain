@@ -6,6 +6,11 @@ services:
       - "--providers.docker=true"
       - "--providers.docker.exposedbydefault=false"
       - "--entrypoints.web.address=:80"
+      # Access Logs - logs every request
+      - "--accesslog=true"
+      - "--accesslog.format=json"
+      # Metrics - Prometheus endpoint at :8080/metrics
+      - "--metrics.prometheus=true"
     ports:
       - "80:80"
       - "8080:8080" # Traefik dashboard
