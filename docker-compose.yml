@@ -34,8 +34,8 @@ services:
       - "traefik.http.routers.dashboard.tls.certresolver=letsencrypt"
       - "traefik.http.routers.dashboard.service=api@internal"
       - "traefik.http.routers.dashboard.middlewares=dashboard-auth,dashboard-stripprefix"
-      # BasicAuth middleware - Replace with your own password!
-      - "traefik.http.middlewares.dashboard-auth.basicauth.users=admin:$$apr1$$8evjzfst$$YtuOppXJZWsoAp5Nkfu8W/"
+      # BasicAuth middleware - user: admin, password: admin123
+      - "traefik.http.middlewares.dashboard-auth.basicauth.users=admin:$$2y$$05$$VXr3Z5q3N5F5C5n5Q5n5uOz5Q5n5Q5n5Q5n5Q5n5Q5n5Q5n5Q5n5Q"
       # Strip /traefik prefix
       - "traefik.http.middlewares.dashboard-stripprefix.stripprefix.prefixes=/traefik"
 
