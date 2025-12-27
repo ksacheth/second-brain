@@ -1,19 +1,14 @@
 version: "3.8"
 services:
   backend:
-    build: ./backend
-
+    image: sachethk/second-brain-backend:latest
     env_file:
       - ./backend/.env
-
     # Ports are not needed if we use the internal network via nginx proxy
     # ports:
     #   - "3002:3002"
 
   frontend:
-    build:
-      context: ./frontend-ts
-      # No args needed as we use relative paths now (defaults to empty string)
-
+    image: sachethk/second-brain-frontend:latest
     ports:
       - "80:80"
