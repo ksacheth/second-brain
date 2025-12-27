@@ -12,7 +12,6 @@ COPY . .
 
 # Build the application
 ARG VITE_BACKEND_URL=""
-ENV VITE_BACKEND_URL=$VITE_BACKEND_URL
 RUN bun run build
 
 # Production stage

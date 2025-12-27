@@ -1,0 +1,40 @@
+version: '3.8'
+services:
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    restart: unless-stopped
+    environment:
+      - PORT=3002
+      - JWT_PASSWORD=randome
+      - MONGODB_URL=mongodb+srv://sacheth:VHctHP7xAHFePyMn@cluster0.6zpiss.mongodb.net/brainly?appName=Cluster0
+    # depends_on:
+    #   - mongo
+    networks:
+      - dokploy-network
+
+  frontend:
+    build:
+      context: ./frontend-ts
+      dockerfile: Dockerfile
+    restart: unless-stopped
+    depends_on:
+      - backend
+    networks:
+      - dokploy-network
+
+  # mongo:
+  #   image: mongo:latest
+  #   restart: unless-stopped
+  #   volumes:
+  #     - mongo_data:/data/db
+  #   networks:
+  #     - dokploy-network
+
+# volumes:
+#   mongo_data:
+
+networks:
+  dokploy-network:
+    external: true
