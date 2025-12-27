@@ -28,16 +28,15 @@ services:
       - ./letsencrypt:/letsencrypt
     labels:
       - "traefik.enable=true"
-      # Dashboard
-      - "traefik.http.routers.dashboard.rule=Host(`brain.sacheth.qzz.io`) && PathPrefix(`/traefik`)"
+      # Dashboard router
+      - "traefik.http.routers.dashboard.rule=Host(`brain.sacheth.qzz.io`) && (PathPrefix(`/api`) || PathPrefix(`/dashboard`))"
       - "traefik.http.routers.dashboard.entrypoints=websecure"
       - "traefik.http.routers.dashboard.tls.certresolver=letsencrypt"
       - "traefik.http.routers.dashboard.service=api@internal"
-      - "traefik.http.routers.dashboard.middlewares=dashboard-auth,dashboard-stripprefix"
+      - "traefik.http.routers.dashboard.middlewares=dashboard-auth"
+      - "traefik.http.routers.dashboard.priority=100"
       # BasicAuth middleware - user: admin, password: admin123
       - "traefik.http.middlewares.dashboard-auth.basicauth.users=admin:$$2y$$05$$giYPsXaJ3lhwkMy9PasaVuY44jFQtoFYCVPUGSuBUIpvV7bximuTK"
-      # Strip /traefik prefix
-      - "traefik.http.middlewares.dashboard-stripprefix.stripprefix.prefixes=/traefik"
 
   backend:
     image: sachethk/second-brain-backend:latest
@@ -45,7 +44,7 @@ services:
       - ./backend/.env
     labels:
       - "traefik.enable=true"
-      - "traefik.http.routers.backend.rule=Host(`brain.sacheth.qzz.io`) && PathPrefix(`/api`)"
+      - "traefik.http.routers.backend.rule=Host(`brain.sacheth.qzz.io`) && PathPrefix(`/api/v1`)"
       - "traefik.http.routers.backend.entrypoints=websecure"
       - "traefik.http.routers.backend.tls.certresolver=letsencrypt"
       - "traefik.http.services.backend.loadbalancer.server.port=3002"
