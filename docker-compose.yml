@@ -35,7 +35,7 @@ services:
       - "traefik.http.routers.dashboard.service=api@internal"
       - "traefik.http.routers.dashboard.middlewares=dashboard-auth,dashboard-stripprefix"
       # BasicAuth middleware - user: admin, password: admin123
-      - "traefik.http.middlewares.dashboard-auth.basicauth.users=admin:$$2y$$05$$VXr3Z5q3N5F5C5n5Q5n5uOz5Q5n5Q5n5Q5n5Q5n5Q5n5Q5n5Q5n5Q"
+      - "traefik.http.middlewares.dashboard-auth.basicauth.users=admin:$$2y$$05$$giYPsXaJ3lhwkMy9PasaVuY44jFQtoFYCVPUGSuBUIpvV7bximuTK"
       # Strip /traefik prefix
       - "traefik.http.middlewares.dashboard-stripprefix.stripprefix.prefixes=/traefik"
 
