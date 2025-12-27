@@ -2,7 +2,7 @@ services:
   traefik:
     image: traefik:latest
     command:
-      - "--api.insecure=true"
+      - "--api.dashboard=true"
       - "--providers.docker=true"
       - "--providers.docker.exposedbydefault=false"
       - "--entrypoints.web.address=:80"
@@ -23,10 +23,21 @@ services:
     ports:
       - "80:80"
       - "443:443"
-      - "8080:8080" # Traefik dashboard
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock:ro
       - ./letsencrypt:/letsencrypt
+    labels:
+      - "traefik.enable=true"
+      # Dashboard
+      - "traefik.http.routers.dashboard.rule=Host(`brain.sacheth.qzz.io`) && PathPrefix(`/traefik`)"
+      - "traefik.http.routers.dashboard.entrypoints=websecure"
+      - "traefik.http.routers.dashboard.tls.certresolver=letsencrypt"
+      - "traefik.http.routers.dashboard.service=api@internal"
+      - "traefik.http.routers.dashboard.middlewares=dashboard-auth,dashboard-stripprefix"
+      # BasicAuth middleware - Replace with your own password!
+      - "traefik.http.middlewares.dashboard-auth.basicauth.users=admin:$$apr1$$8evjzfst$$YtuOppXJZWsoAp5Nkfu8W/"
+      # Strip /traefik prefix
+      - "traefik.http.middlewares.dashboard-stripprefix.stripprefix.prefixes=/traefik"
 
   backend:
     image: sachethk/second-brain-backend:latest
